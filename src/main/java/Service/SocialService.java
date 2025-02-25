@@ -3,8 +3,8 @@ package Service;
 
 
 
-import Application.Model.Flight;
-import Application.DAO.FlightDAO;
+import Model.Account;
+import DAO.SocialDAO;
 
 import java.util.List;
 
