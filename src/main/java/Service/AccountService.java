@@ -1,6 +1,8 @@
 package Service;
 
 import Model.Account;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountService
 {
@@ -15,6 +17,11 @@ public class AccountService
     public Account postMessage(Account account)
     {
         return account;
+    }
+    public List<String> getAllMessages()
+    {
+        List<String> bob = new ArrayList<String>();
+        return bob;
     }
 }
 

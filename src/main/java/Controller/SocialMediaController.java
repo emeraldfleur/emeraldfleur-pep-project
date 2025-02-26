@@ -117,9 +117,25 @@ public class SocialMediaController {
     }
 
     //get Handlers
+
+    /*
+    4: Our API should be able to retrieve all messages.
+    As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages.
+    The response body should contain a JSON representation of a list containing all messages retrieved from the database. 
+    It is expected for the list to simply be empty if there are no messages. 
+    The response status should always be 200, which is the default.
+     */
     private void getAllMessageHandler(Context context)
     {
-        
+        try
+        {
+            Account returnAccount = bookie.getAllMessages();
+            context.json(returnAccount);
+        }
+        catch (Exception e)
+        {
+            context.status(400);
+        }
     }
     private void getMessageIDHandler(Context context)
     {
