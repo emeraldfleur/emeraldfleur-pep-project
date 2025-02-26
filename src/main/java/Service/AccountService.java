@@ -15,9 +15,9 @@ public class AccountService
     {
         return account;
     }
-    public Account postMessage(Account account)
+    public Message postMessage(Message message)
     {
-        return account;
+        return message;
     }
     public List<String> getAllMessages()
     {

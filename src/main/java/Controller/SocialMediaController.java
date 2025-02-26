@@ -91,7 +91,7 @@ public class SocialMediaController {
         }
         catch (Exception e)
         {
-            context.status(400);
+            context.status(401);
         }
     }
     /*
@@ -111,8 +111,8 @@ public class SocialMediaController {
     {
         try
         {
-            Account receivedAccount = context.bodyAsClass(Account.class);
-            Account returnedAccount = bookie.postMessage(receivedAccount);
+            Message receivedAccount = context.bodyAsClass(Message.class);
+            Message returnedAccount = bookie.postMessage(receivedAccount);
             context.json(returnedAccount);
         }
         catch (Exception e)
