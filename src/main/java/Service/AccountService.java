@@ -2,7 +2,21 @@ package Service;
 
 import Model.Account;
 
-public interface AccountService {
-    Account registerNewAccount(Account account);
-    
+public class AccountService
+{
+    public Account registerNewAccount(Account account)
+    {
+        return account;
+    }
+    public Account tryLogin(Account account)
+    {
+        return account;
+    }
+    public Account postMessage(Account account)
+    {
+        return account;
+    }
 }
+
+
+

@@ -4,13 +4,13 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import Model.Account;
 import Service.AccountService;
-import Service.AccountServiceImplementation;
+import Service.AccountService;
 
 public class SocialMediaController {
     private AccountService bookie;
     public SocialMediaController()
     {
-        bookie = new AccountServiceImplementation();
+        bookie = new AccountService();
     }
 
     public Javalin startAPI() {
@@ -107,7 +107,7 @@ public class SocialMediaController {
         try
         {
             Account receivedAccount = context.bodyAsClass(Account.class);
-            Account returnedAccount = bookie.registerNewAccount(receivedAccount);
+            Account returnedAccount = bookie.postMessage(receivedAccount);
             context.json(returnedAccount);
         }
         catch (Exception e)
