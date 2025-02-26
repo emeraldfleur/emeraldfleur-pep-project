@@ -24,9 +24,10 @@ public class AccountService
         List<String> bob = new ArrayList<String>();
         return bob;
     }
-    public Message getIDMessage(Message message)
+    public Message getIDMessage(String userID)
     {
-        return message;
+        Message bob = new Message();
+        return bob;
     }
 }
 

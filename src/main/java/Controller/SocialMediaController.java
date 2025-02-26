@@ -158,8 +158,9 @@ public class SocialMediaController {
     {
         try
         {
-            Message requestedMessage = context.bodyAsClass(Message.class);
-            Message returnedMessages = bookie.getIDMessage(requestedMessage);
+            String userID = context.pathParam("message_id");
+            
+            Message returnedMessages = bookie.getIDMessage(userID);
             context.json(returnedMessages);
         }
         catch (Exception e)
@@ -167,9 +168,32 @@ public class SocialMediaController {
             context.status(200);
         }
     }
+    /*
+    
+    Our API should be able to retrieve all messages written by a particular user.
+
+    As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/accounts/{account_id}/messages.
+
+    The response body should contain a JSON representation of a list containing all messages posted by a particular user, 
+    which is retrieved from the database. 
+    
+    It is expected for the list to simply be empty if there are no messages. 
+    
+    The response status should always be 200, which is the default.
+    
+    */
     private void getUserMessageID(Context context)
     {
+        try
+        {
+            String userID = context.pathParam(account_id);
 
+    
+        }
+        catch (Exception e)
+        {
+            context.status(200);
+        }
     }
     //delete Handler
     private void deleteMessageIDHandler(Context context)
