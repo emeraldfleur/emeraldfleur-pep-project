@@ -29,6 +29,16 @@ public class SocialMediaController {
     // post Handlers
     private void registrationHandler(Context context) 
     {
+        try
+        {
+            Account registerHandleAccount = context.bodyAsClass(Account.class);
+            System.out.println(registerHandleAccount);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            context.status(400);
+        }
         
     }
 
