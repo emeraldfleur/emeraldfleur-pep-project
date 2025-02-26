@@ -7,20 +7,27 @@ public class SocialDAO {
     public static boolean accountExists(Account account)
     {
         Connection connection = ConnectionUtil.getConnection();
-        try {
-            //Write SQL logic here
-            String sql = "SELECT * FROM Author;";
+        try 
+        {
+            String sql = "SELECT * FROM Account WHERE username = ? AND password = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, account.username);
+            preparedStatement.setString(2, account.password);
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                Author author = new Author(rs.getInt("id"), rs.getString("name"));
-                authors.add(author);
+            if (rs.next())
+            {
+                return true;
             }
-        }catch(SQLException e){
+            else
+            {
+                return false;
+            }
+        }
+        catch(SQLException e)
+        {
             System.out.println(e.getMessage());
         }
-        return authors;
-        return true;
+        return false;
     }
     public static Account createAccount(Account account)
     {
