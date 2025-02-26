@@ -4,16 +4,40 @@ import Model.Account;
 import Model.Message;
 import java.util.ArrayList;
 import java.util.List;
+import DAO.SocialDAO;
 
 public class AccountService
 {
-    public Account registerNewAccount(Account account)
+    public Account registerNewAccount(Account account) throws Exception
     {
-        return account;
+        //Check if account exists first.
+        if(SocialDAO.accountExists(account))
+        {
+            throw new Exception();
+        }
+        else //if not, create account, return it.
+        {
+            return SocialDAO.createAccount(account);
+        }
+
     }
-    public Account tryLogin(Account account)
+    public Account tryLogin(Account account) throws Exception
     {
-        return account;
+        if(SocialDAO.accountExists(account)) //Check if account exists. If so, move on, else exception.
+        {
+            if(SocialDAO.credentialsMatchExisting(account)) //If account matches one in the database, move on. else, exception.
+            {
+                return SocialDAO.retrieveAccountbyUserID(account.username); //return the account matching userID. 
+            }
+            else
+            {
+                throw new Exception();   
+            }
+        }
+        else //if not, throw exception
+        {
+            throw new Exception();
+        }
     }
     public Message postMessage(Message message)
     {
