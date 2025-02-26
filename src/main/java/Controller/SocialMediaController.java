@@ -3,8 +3,15 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import Model.Account;
+import Service.AccountService;
+import Service.AccountServiceImplementation;
 
 public class SocialMediaController {
+    private AccountService bookie;
+    public SocialMediaController()
+    {
+        bookie = new AccountServiceImplementation();
+    }
 
     public Javalin startAPI() {
         Javalin app = Javalin.create();
@@ -31,14 +38,12 @@ public class SocialMediaController {
     {
         try
         {
-            Account registerHandleAccount = context.bodyAsClass(Account.class);
-            System.out.println(registerHandleAccount);
-            context.status(200);
-            
+            Account receivedAccount = context.bodyAsClass(Account.class);
+            Account returnedAccount = bookie.registerNewAccount(receivedAccount);
+            context.json(returnedAccount);
         }
         catch (Exception e)
         {
-            System.out.println(e);
             context.status(400);
         }
         
