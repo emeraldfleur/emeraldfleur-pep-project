@@ -34,6 +34,16 @@ public class AccountService
         List<String> bob = new ArrayList<String>();
         return bob;
     }
+    public Message deleteIDMessage(int messageID)
+    {
+        Message bob = new Message();
+        return bob;
+    }
+    public Message updateMessage(int messageID, Message newMessage)
+    {
+        Message bob = new Message();
+        return bob;
+    }
 }
 
 
