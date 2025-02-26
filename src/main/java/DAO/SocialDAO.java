@@ -40,10 +40,25 @@ public class SocialDAO {
         return true;
 
     }
-    public static Account retrieveAccountbyUserID(String username)
+    public static Account retrieveAccountbyUserID(String username) throws Exception
     {
-        Account bob = new Account();
-        return bob;
+        Connection connection = ConnectionUtil.getConnection();
+        try 
+        {
+            String sql = "SELECT * FROM Account WHERE username = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            int userID = rs.getInt(1);
+            String newUsername = rs.getString(2);
+            String password = rs.getString(3);
+            Account returnAccount = new Account(userID, newUsername, password);
+            return returnAccount;
+        }
+        catch(SQLException e)
+        {
+            throw new Exception();
+        }
     }
 }
 
