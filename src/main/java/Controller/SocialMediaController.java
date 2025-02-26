@@ -158,9 +158,8 @@ public class SocialMediaController {
     {
         try
         {
-            String userID = context.pathParam("message_id");
-            
-            Message returnedMessages = bookie.getIDMessage(userID);
+            int messageID = Integer.parseInt(context.pathParam("message_id"));
+            Message returnedMessages = bookie.getIDMessage(messageID);
             context.json(returnedMessages);
         }
         catch (Exception e)
@@ -186,8 +185,8 @@ public class SocialMediaController {
     {
         try
         {
-            String userID = context.pathParam(account_id);
-
+            int userID = Integer.parseInt(context.pathParam("account_id"));
+            List<String> = bookie.getMessagesOfUser(userID);
     
         }
         catch (Exception e)

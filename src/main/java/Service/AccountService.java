@@ -24,9 +24,14 @@ public class AccountService
         List<String> bob = new ArrayList<String>();
         return bob;
     }
-    public Message getIDMessage(String userID)
+    public Message getIDMessage(int userID)
     {
         Message bob = new Message();
+        return bob;
+    }
+    public List<String> getMessagesOfUser(int userID)
+    {
+        List<String> bob = new ArrayList<String>();
         return bob;
     }
 }
