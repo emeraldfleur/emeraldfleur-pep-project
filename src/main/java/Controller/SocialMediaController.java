@@ -33,6 +33,8 @@ public class SocialMediaController {
         {
             Account registerHandleAccount = context.bodyAsClass(Account.class);
             System.out.println(registerHandleAccount);
+            context.status(200);
+            
         }
         catch (Exception e)
         {
@@ -44,7 +46,7 @@ public class SocialMediaController {
 
     private void loginHandler(Context context) 
     {
-        
+        Account login = 
     }
     private void postMessageHandler(Context context)
     {
