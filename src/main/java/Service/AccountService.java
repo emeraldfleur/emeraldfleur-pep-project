@@ -1,6 +1,7 @@
 package Service;
 
 import Model.Account;
+import Model.Message;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class AccountService
     {
         List<String> bob = new ArrayList<String>();
         return bob;
+    }
+    public Message getIDMessage(Message message)
+    {
+        return message;
     }
 }
 

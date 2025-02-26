@@ -3,11 +3,16 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import Model.Account;
+import Model.Message;
 import Service.AccountService;
-import Service.AccountService;
+import java.util.List;
+
 
 public class SocialMediaController {
+    
     private AccountService bookie;
+
+
     public SocialMediaController()
     {
         bookie = new AccountService();
@@ -129,17 +134,38 @@ public class SocialMediaController {
     {
         try
         {
-            Account returnAccount = bookie.getAllMessages();
-            context.json(returnAccount);
+            List<String> returnedMessages = bookie.getAllMessages();
+            context.json(returnedMessages);
         }
         catch (Exception e)
         {
-            context.status(400);
+            context.status(200);
         }
     }
+
+    /*
+    
+    Our API should be able to retrieve a message by its ID.
+
+    As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages/{message_id}.
+    
+    The response body should contain a JSON representation of the message identified by the message_id. 
+    It is expected for the response body to simply be empty if there is no such message. The response status should always be 200, which is the default.
+    
+    */
+
     private void getMessageIDHandler(Context context)
     {
-
+        try
+        {
+            Message requestedMessage = context.bodyAsClass(Message.class);
+            Message returnedMessages = bookie.getIDMessage(requestedMessage);
+            context.json(returnedMessages);
+        }
+        catch (Exception e)
+        {
+            context.status(200);
+        }
     }
     private void getUserMessageID(Context context)
     {
