@@ -173,12 +173,20 @@ public class SocialDAO {
                 preparedStatement2.setString(1, message.message_text);
                 ResultSet rs2 = preparedStatement2.executeQuery();
 
-                int message_id = rs2.getInt(1);
-                int posted_by = rs2.getInt(2);
-                String message_text = rs2.getString(3);
-                Long time_posted_epoch = rs2.getLong(4);
-                Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
-                return returnMessage;
+                if(rs2.next())
+                {
+                    int message_id = rs2.getInt(1);
+                    int posted_by = rs2.getInt(2);
+                    String message_text = rs2.getString(3);
+                    Long time_posted_epoch = rs2.getLong(4);
+                    Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                    return returnMessage;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                
              }
              catch(SQLException e)
             {
@@ -257,13 +265,20 @@ public class SocialDAO {
                 ResultSet rs = preparedStatement.executeQuery();
 
                 //Build return message
-                int message_id = rs.getInt(1);
-                int posted_by = rs.getInt(2);
-                String message_text = rs.getString(3);
-                Long time_posted_epoch = rs.getLong(4);
-                Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+
+                Message returnMessage = new Message();
+
+                while(rs.next())
+                {
+                    int message_id = rs.getInt(1);
+                    int posted_by = rs.getInt(2);
+                    String message_text = rs.getString(3);
+                    Long time_posted_epoch = rs.getLong(4);
+                    returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                    
+                }
                 return returnMessage;
-             }
+            }
              catch(SQLException e)
             {
                 throw new Exception();
@@ -275,24 +290,30 @@ public class SocialDAO {
         Connection connection = ConnectionUtil.getConnection();
             try 
             {
-                String sql2 = "DELETE FROM Message WHERE message_id = ?;";
+                String sql2 = "SELECT * FROM Message WHERE message_id = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 ResultSet rs = preparedStatement.executeQuery();
 
-                //Build return message
-                int message_id = rs.getInt(1);
-                int posted_by = rs.getInt(2);
-                String message_text = rs.getString(3);
-                Long time_posted_epoch = rs.getLong(4);
-                Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                Message returnMessage = new Message();
 
+                //Build return message
+                if (rs.next())
+                {
+                    int message_id = rs.getInt(1);
+                    int posted_by = rs.getInt(2);
+                    String message_text = rs.getString(3);
+                    Long time_posted_epoch = rs.getLong(4);
+                    returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                }
+                
+                
                 //Delete the message.
 
-                sql2 = "TRUNCATE FROM Message WHERE message_id = ?;";
+                sql2 = "DELETE FROM Message WHERE message_id = ?;";
                 preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
-                preparedStatement.executeQuery();
+                preparedStatement.executeUpdate();
 
                 return returnMessage;
              }
