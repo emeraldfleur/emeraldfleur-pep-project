@@ -1,5 +1,6 @@
 package DAO;
 import Model.Account;
+import Model.Message;
 import Util.ConnectionUtil;
 import java.sql.*; 
 
@@ -12,6 +13,30 @@ public class SocialDAO {
             String sql = "SELECT * FROM Account WHERE username = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, account.username);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public static boolean accountExists(String username) //ONLY checks if account that matches username exists
+    {
+        Connection connection = ConnectionUtil.getConnection();
+        try 
+        {
+            String sql = "SELECT * FROM Account WHERE username = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
             {
@@ -99,6 +124,43 @@ public class SocialDAO {
             return returnAccount;
         }
         catch(SQLException e)
+        {
+            throw new Exception();
+        }
+    }
+    public static Message postMessage(Message message) throws Exception
+    {
+        String username = Integer.toString(message.getPosted_by());
+        if(accountExists(username))
+        {
+            Connection connection = ConnectionUtil.getConnection();
+            try 
+            {
+                String sql = "INSERT INTO Message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?);";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, message.posted_by);
+                preparedStatement.setString(2,message.message_text);
+                preparedStatement.setLong(3,message.time_posted_epoch);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                String sql2 = "SELECT * FROM Message WHERE message_text = ?;";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
+                preparedStatement2.setString(1, message.message_text);
+                ResultSet rs2 = preparedStatement.executeQuery();
+
+                int message_id = rs2.getInt(1);
+                int posted_by = rs2.getInt(2);
+                String message_text = rs2.getString(3);
+                Long time_posted_epoch = rs2.getLong(4);
+                Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                return returnMessage;
+             }
+             catch(SQLException e)
+            {
+                throw new Exception();
+            }
+        }
+        else
         {
             throw new Exception();
         }

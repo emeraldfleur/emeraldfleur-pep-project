@@ -39,9 +39,16 @@ public class AccountService
             throw new Exception();
         }
     }
-    public Message postMessage(Message message)
+    public Message postMessage(Message message) throws Exception
     {
-        return message;
+        if ((message.toString()).length() > 255)
+        {
+            throw new Exception();
+        }
+        else
+        {
+            return SocialDAO.postMessage(message);
+        }
     }
     public List<String> getAllMessages()
     {
