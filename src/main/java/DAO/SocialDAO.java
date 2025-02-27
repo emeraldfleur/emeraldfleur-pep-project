@@ -251,7 +251,7 @@ public class SocialDAO {
         Connection connection = ConnectionUtil.getConnection();
             try 
             {
-                String sql2 = "SELECT * FROM Message WHERE id = ?;";
+                String sql2 = "SELECT * FROM Message WHERE message_id = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 ResultSet rs = preparedStatement.executeQuery();
@@ -275,7 +275,7 @@ public class SocialDAO {
         Connection connection = ConnectionUtil.getConnection();
             try 
             {
-                String sql2 = "DELETE * FROM Message WHERE id = ?;";
+                String sql2 = "DELETE * FROM Message WHERE message_id = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 ResultSet rs = preparedStatement.executeQuery();
@@ -289,7 +289,7 @@ public class SocialDAO {
 
                 //Delete the message.
 
-                sql2 = "TRUNCATE * FROM Message WHERE id = ?;";
+                sql2 = "TRUNCATE * FROM Message WHERE message_id = ?;";
                 preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 preparedStatement.executeQuery();
@@ -307,7 +307,7 @@ public class SocialDAO {
         Connection connection = ConnectionUtil.getConnection();
             try 
             {
-                String sql2 = "SELECT * FROM Message WHERE id = ?;";
+                String sql2 = "SELECT * FROM Message WHERE message_id = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 ResultSet rs = preparedStatement.executeQuery();
