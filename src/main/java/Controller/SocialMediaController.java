@@ -139,7 +139,10 @@ public class SocialMediaController {
         }
         catch (Exception e)
         {
+            
             context.status(200);
+            context.json("");
+
         }
     }
 
@@ -164,7 +167,10 @@ public class SocialMediaController {
         }
         catch (Exception e)
         {
+            
             context.status(200);
+            context.json("");
+
         }
     }
     /*
@@ -192,6 +198,7 @@ public class SocialMediaController {
         catch (Exception e)
         {
             context.status(200);
+            context.json("");
         }
     }
 
@@ -220,6 +227,8 @@ public class SocialMediaController {
         catch (Exception e)
         {
             context.status(200);
+            context.json("");
+
         }
     }
     //patch Handler
