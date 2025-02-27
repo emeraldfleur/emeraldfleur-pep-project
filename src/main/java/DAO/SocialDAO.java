@@ -64,14 +64,14 @@ public class SocialDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, account.username);
             preparedStatement.setString(2,account.password);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
             String sql2 = "SELECT * FROM Account WHERE username = ? AND password = ?;";
             PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
             preparedStatement2.setString(1, account.username);
             preparedStatement2.setString(2, account.password);
             
-            ResultSet rs2 = preparedStatement.executeQuery();
+            ResultSet rs2 = preparedStatement2.executeQuery();
             int userID = rs2.getInt(1);
             String newUsername = rs2.getString(2);
             String password = rs2.getString(3);
