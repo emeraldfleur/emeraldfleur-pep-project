@@ -55,6 +55,25 @@ public class SocialDAO {
         }
         return false;
     }
+
+    public static boolean accountExists(int account_id) throws Exception
+    {
+        Connection connection = ConnectionUtil.getConnection();
+        try 
+        {
+            String sql = "SELECT 1 FROM Account WHERE account_id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, account_id);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            return rs.next();
+        }
+        catch(SQLException e)
+        {
+            return false;
+        }
+    }
+    
     public static Account createAccount(Account account) throws Exception
     {
         Connection connection = ConnectionUtil.getConnection();
@@ -64,6 +83,7 @@ public class SocialDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, account.username);
             preparedStatement.setString(2,account.password);
+            
             preparedStatement.executeUpdate();
 
             String sql2 = "SELECT * FROM Account WHERE username = ? AND password = ?;";
@@ -72,6 +92,7 @@ public class SocialDAO {
             preparedStatement2.setString(2, account.password);
             
             ResultSet rs2 = preparedStatement2.executeQuery();
+            
             int userID = rs2.getInt(1);
             String newUsername = rs2.getString(2);
             String password = rs2.getString(3);
@@ -130,10 +151,12 @@ public class SocialDAO {
             throw new Exception();
         }
     }
+    
     public static Message postMessage(Message message) throws Exception
     {
-        String username = Integer.toString(message.getPosted_by());
-        if(accountExists(username))
+        int message_id = message.getPosted_by();
+
+        if(accountExists(message_id))
         {
             Connection connection = ConnectionUtil.getConnection();
             try 
