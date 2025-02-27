@@ -41,7 +41,7 @@ public class AccountService
     }
     public Message postMessage(Message message) throws Exception
     {
-        if ((message.toString()).length() > 255)
+        if ((message.toString()).length() > 255) //Checks not too long
         {
             throw new Exception();
         }
@@ -50,9 +50,9 @@ public class AccountService
             return SocialDAO.postMessage(message);
         }
     }
-    public List<String> getAllMessages()
+    public List<Message> getAllMessages() throws Exception
     {
-        List<String> bob = new ArrayList<String>();
+        List<Message> bob = SocialDAO.pullMessages();
         return bob;
     }
     public Message getIDMessage(int userID)

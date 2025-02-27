@@ -107,7 +107,7 @@ public class SocialMediaController {
     The response status should be 200, which is the default. The new message should be persisted to the database.
     If the creation of the message is not successful, the response status should be 400. (Client error)
      */
-    private void postMessageHandler(Context context)
+    private void postMessageHandler(Context context) //Done
     {
         try
         {
@@ -134,7 +134,7 @@ public class SocialMediaController {
     {
         try
         {
-            List<String> returnedMessages = bookie.getAllMessages();
+            List<Message> returnedMessages = bookie.getAllMessages();
             context.json(returnedMessages);
         }
         catch (Exception e)

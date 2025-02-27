@@ -3,6 +3,8 @@ import Model.Account;
 import Model.Message;
 import Util.ConnectionUtil;
 import java.sql.*; 
+import java.util.List;
+import java.util.ArrayList;
 
 public class SocialDAO {
     public static boolean accountExists(Account account) //ONLY checks if account that matches username exists
@@ -141,12 +143,12 @@ public class SocialDAO {
                 preparedStatement.setInt(1, message.posted_by);
                 preparedStatement.setString(2,message.message_text);
                 preparedStatement.setLong(3,message.time_posted_epoch);
-                ResultSet rs = preparedStatement.executeQuery();
+                preparedStatement.executeQuery(); //Don't need to store results for first execution.
 
                 String sql2 = "SELECT * FROM Message WHERE message_text = ?;";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
                 preparedStatement2.setString(1, message.message_text);
-                ResultSet rs2 = preparedStatement.executeQuery();
+                ResultSet rs2 = preparedStatement2.executeQuery();
 
                 int message_id = rs2.getInt(1);
                 int posted_by = rs2.getInt(2);
@@ -164,6 +166,33 @@ public class SocialDAO {
         {
             throw new Exception();
         }
+    }
+
+    public static List<Message> pullMessages() throws Exception
+    {
+        Connection connection = ConnectionUtil.getConnection();
+            try 
+            {
+                String sql2 = "SELECT * FROM Message;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+                ResultSet rs2 = preparedStatement.executeQuery();
+                List<Message> messageList = new ArrayList<>();
+                while(rs.next())
+                {
+                    int message_id = rs2.getInt(1);
+                    int posted_by = rs2.getInt(2);
+                    String message_text = rs2.getString(3);
+                    Long time_posted_epoch = rs2.getLong(4);
+                    Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                    messageList.add(returnMessage);
+                }
+                
+                return messageList;
+             }
+             catch(SQLException e)
+            {
+                throw new Exception();
+            }
     }
 }
 
