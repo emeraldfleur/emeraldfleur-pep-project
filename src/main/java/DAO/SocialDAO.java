@@ -275,7 +275,7 @@ public class SocialDAO {
         Connection connection = ConnectionUtil.getConnection();
             try 
             {
-                String sql2 = "DELETE * FROM Message WHERE message_id = ?;";
+                String sql2 = "DELETE FROM Message WHERE message_id = ?;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 ResultSet rs = preparedStatement.executeQuery();
