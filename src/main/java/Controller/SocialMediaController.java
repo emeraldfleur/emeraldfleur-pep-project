@@ -209,7 +209,7 @@ public class SocialMediaController {
     If the message did not exist, the response status should be 200, but the response body should be empty. This is because the DELETE verb is intended to be idempotent, ie, multiple calls to the DELETE endpoint should respond with the same type of response.
     
     */
-    private void deleteMessageIDHandler(Context context)
+    private void deleteMessageIDHandler(Context context) //Done
     {
         try
         {
@@ -240,7 +240,7 @@ public class SocialMediaController {
     
     If the update of the message is not successful for any reason, the response status should be 400. (Client error)
      */
-    private void patchMessageIDHandler(Context context)
+    private void patchMessageIDHandler(Context context) //use Existing post method to check, then use patch methods here.
     {
         try
         {

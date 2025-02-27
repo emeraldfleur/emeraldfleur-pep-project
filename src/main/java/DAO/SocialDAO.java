@@ -278,6 +278,33 @@ public class SocialDAO {
                 throw new Exception();
             }
     }
+    
+    public static Message patchMessage(int messageID, Message message) throws Exception
+    {
+        Connection connection = ConnectionUtil.getConnection();
+            try 
+            {
+                String sql2 = "SELECT * FROM Message WHERE id = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setInt(1, messageID);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                //Build message to give to message poster.
+                int message_id = rs.getInt(1);
+                int posted_by = rs.getInt(2);
+                String message_text = message.getMessage_text();
+                Long time_posted_epoch = rs.getLong(4);
+                Message postMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+
+                postMessage(postMessage);
+                
+                return postMessage;
+             }
+             catch(SQLException e)
+            {
+                throw new Exception();
+            }
+    }
 }
 
 
