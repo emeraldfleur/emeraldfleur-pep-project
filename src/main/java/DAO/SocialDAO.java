@@ -289,7 +289,7 @@ public class SocialDAO {
 
                 //Delete the message.
 
-                sql2 = "TRUNCATE * FROM Message WHERE message_id = ?;";
+                sql2 = "TRUNCATE FROM Message WHERE message_id = ?;";
                 preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setInt(1, messageID);
                 preparedStatement.executeQuery();
@@ -319,7 +319,14 @@ public class SocialDAO {
                 Long time_posted_epoch = rs.getLong(4);
                 Message postMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
 
-                postMessage(postMessage);
+                
+                String sql = "UPDATE  Message (posted_by, message_text, time_posted_epoch, message_id) VALUES (?, ?, ?, ?);";
+                PreparedStatement preparedStatement2 = connection.prepareStatement(sql);
+                preparedStatement2.setInt(1, posted_by);
+                preparedStatement2.setString(2,message_text);
+                preparedStatement2.setLong(3,time_posted_epoch);
+                preparedStatement2.setInt(4, message_id);
+                preparedStatement2.executeUpdate(); //Don't need to store results for first execution.
                 
                 return postMessage;
              }

@@ -141,7 +141,6 @@ public class SocialMediaController {
         {
             
             context.status(200);
-            context.json("");
 
         }
     }
