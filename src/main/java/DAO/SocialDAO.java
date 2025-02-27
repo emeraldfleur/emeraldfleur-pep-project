@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class SocialDAO {
+public class SocialDAO { //test
     public static boolean accountExists(Account account) //ONLY checks if account that matches username exists
     {
         Connection connection = ConnectionUtil.getConnection();
