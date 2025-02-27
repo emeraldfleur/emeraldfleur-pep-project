@@ -76,6 +76,10 @@ public class AccountService
         {
             return SocialDAO.patchMessage(messageID, newMessage);
         }
+        else
+        {
+            throw new Exception();
+        }
     }
 }
 
