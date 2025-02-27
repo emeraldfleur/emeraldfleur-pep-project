@@ -73,7 +73,7 @@ public class SocialDAO {
             return false;
         }
     }
-    
+
     public static Account createAccount(Account account) throws Exception
     {
         Connection connection = ConnectionUtil.getConnection();
@@ -154,9 +154,9 @@ public class SocialDAO {
     
     public static Message postMessage(Message message) throws Exception
     {
-        int message_id = message.getPosted_by();
+        int message_id_indicator = message.getPosted_by();
 
-        if(accountExists(message_id))
+        if(accountExists(message_id_indicator))
         {
             Connection connection = ConnectionUtil.getConnection();
             try 
