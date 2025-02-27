@@ -118,6 +118,7 @@ public class SocialMediaController {
         catch (Exception e)
         {
             context.status(400);
+            context.json("");
         }
     }
 

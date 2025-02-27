@@ -40,7 +40,7 @@ public class AccountService
     }
     public Message postMessage(Message message) throws Exception
     {
-        if ((message.toString()).length() > 255) //Checks not too long
+        if ((message.message_text.length() > 255) || (message.message_text.length() < 1)) //Checks not too long
         {
             throw new Exception();
         }
