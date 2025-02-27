@@ -194,6 +194,35 @@ public class SocialDAO {
                 throw new Exception();
             }
     }
+
+    public static List<Message> pullMessages(int userID) throws Exception
+    {
+        Connection connection = ConnectionUtil.getConnection();
+            try 
+            {
+                String sql2 = "SELECT * FROM Message WHERE posted_by = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setInt(1, userID);
+                ResultSet rs = preparedStatement.executeQuery();
+                List<Message> messageList = new ArrayList<>();
+                while(rs.next())
+                {
+                    int message_id = rs.getInt(1);
+                    int posted_by = rs.getInt(2);
+                    String message_text = rs.getString(3);
+                    Long time_posted_epoch = rs.getLong(4);
+                    Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                    messageList.add(returnMessage);
+                }
+                
+                return messageList;
+             }
+             catch(SQLException e)
+            {
+                throw new Exception();
+            }
+    }
+
     public static Message retrieveMessagebyMessageID(int messageID) throws Exception
     {
         Connection connection = ConnectionUtil.getConnection();

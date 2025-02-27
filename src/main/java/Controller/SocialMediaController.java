@@ -154,7 +154,7 @@ public class SocialMediaController {
     
     */
 
-    private void getMessageIDHandler(Context context) //current
+    private void getMessageIDHandler(Context context) //Done
     {
         try
         {
@@ -181,12 +181,12 @@ public class SocialMediaController {
     The response status should always be 200, which is the default.
     
     */
-    private void getUserMessageID(Context context)
+    private void getUserMessageID(Context context) //current
     {
         try
         {
             int userID = Integer.parseInt(context.pathParam("account_id"));
-            List<String> returnList = bookie.getMessagesOfUser(userID);
+            List<Message> returnList = bookie.getMessagesOfUser(userID);
             context.json(returnList);
         }
         catch (Exception e)

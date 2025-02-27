@@ -60,9 +60,9 @@ public class AccountService
         Message bob = SocialDAO.retrieveMessagebyMessageID(messageID);
         return bob;
     }
-    public List<String> getMessagesOfUser(int userID)
+    public List<Message> getMessagesOfUser(int userID) throws Exception
     {
-        List<String> bob = new ArrayList<String>();
+        List<Message> bob = SocialDAO.pullMessages(userID);
         return bob;
     }
     public Message deleteIDMessage(int messageID)
