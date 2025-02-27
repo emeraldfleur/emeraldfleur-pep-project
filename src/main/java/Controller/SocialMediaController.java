@@ -130,7 +130,7 @@ public class SocialMediaController {
     It is expected for the list to simply be empty if there are no messages. 
     The response status should always be 200, which is the default.
      */
-    private void getAllMessageHandler(Context context)
+    private void getAllMessageHandler(Context context) //Done
     {
         try
         {
@@ -213,14 +213,13 @@ public class SocialMediaController {
     {
         try
         {
-            int messageID = Integer.parseInt(context.pathParam("message_id"));
+            int messageID = Integer.parseInt(context.pathParam("message_id")); //Pull a messageID int from the pathParam.
             Message returnedMessages = bookie.deleteIDMessage(messageID);
             context.json(returnedMessages);
         }
         catch (Exception e)
         {
             context.status(200);
-            context.json("");
         }
     }
     //patch Handler
