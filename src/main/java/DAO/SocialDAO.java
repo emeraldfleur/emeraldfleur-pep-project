@@ -166,7 +166,7 @@ public class SocialDAO {
                 preparedStatement.setInt(1, message.posted_by);
                 preparedStatement.setString(2,message.message_text);
                 preparedStatement.setLong(3,message.time_posted_epoch);
-                preparedStatement.executeQuery(); //Don't need to store results for first execution.
+                preparedStatement.executeUpdate(); //Don't need to store results for first execution.
 
                 String sql2 = "SELECT * FROM Message WHERE message_text = ?;";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
