@@ -181,7 +181,7 @@ public class SocialMediaController {
     The response status should always be 200, which is the default.
     
     */
-    private void getUserMessageID(Context context) //current
+    private void getUserMessageID(Context context) //Done
     {
         try
         {

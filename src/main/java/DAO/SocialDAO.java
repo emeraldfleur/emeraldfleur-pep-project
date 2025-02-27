@@ -246,6 +246,38 @@ public class SocialDAO {
                 throw new Exception();
             }
     }
+
+    public static Message deleteMessagebyID(int messageID) throws Exception
+    {
+        Connection connection = ConnectionUtil.getConnection();
+            try 
+            {
+                String sql2 = "SELECT * FROM Message WHERE id = ?;";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setInt(1, messageID);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                //Build return message
+                int message_id = rs.getInt(1);
+                int posted_by = rs.getInt(2);
+                String message_text = rs.getString(3);
+                Long time_posted_epoch = rs.getLong(4);
+                Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+
+                //Delete the message.
+
+                sql2 = "TRUNCATE * FROM Message WHERE id = ?;";
+                preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setInt(1, messageID);
+                preparedStatement.executeQuery();
+
+                return returnMessage;
+             }
+             catch(SQLException e)
+            {
+                throw new Exception();
+            }
+    }
 }
 
 

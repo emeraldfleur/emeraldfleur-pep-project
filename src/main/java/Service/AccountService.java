@@ -65,12 +65,12 @@ public class AccountService
         List<Message> bob = SocialDAO.pullMessages(userID);
         return bob;
     }
-    public Message deleteIDMessage(int messageID)
+    public Message deleteIDMessage(int messageID) throws Exception
     {
-        Message bob = new Message();
+        Message bob = SocialDAO.deleteMessagebyID(messageID);
         return bob;
     }
-    public Message updateMessage(int messageID, Message newMessage)
+    public Message updateMessage(int messageID, Message newMessage) throws Exception
     {
         Message bob = new Message();
         return bob;
