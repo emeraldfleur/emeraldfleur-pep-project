@@ -64,7 +64,7 @@ public class SocialDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, account.username);
             preparedStatement.setString(2,account.password);
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.executeQuery();
 
             String sql2 = "SELECT * FROM Account WHERE username = ? AND password = ?;";
             PreparedStatement preparedStatement2 = connection.prepareStatement(sql2);
@@ -175,14 +175,14 @@ public class SocialDAO {
             {
                 String sql2 = "SELECT * FROM Message;";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql2);
-                ResultSet rs2 = preparedStatement.executeQuery();
+                ResultSet rs = preparedStatement.executeQuery();
                 List<Message> messageList = new ArrayList<>();
                 while(rs.next())
                 {
-                    int message_id = rs2.getInt(1);
-                    int posted_by = rs2.getInt(2);
-                    String message_text = rs2.getString(3);
-                    Long time_posted_epoch = rs2.getLong(4);
+                    int message_id = rs.getInt(1);
+                    int posted_by = rs.getInt(2);
+                    String message_text = rs.getString(3);
+                    Long time_posted_epoch = rs.getLong(4);
                     Message returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
                     messageList.add(returnMessage);
                 }
