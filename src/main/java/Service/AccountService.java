@@ -2,7 +2,6 @@ package Service;
 
 import Model.Account;
 import Model.Message;
-import java.util.ArrayList;
 import java.util.List;
 import DAO.SocialDAO;
 
@@ -41,7 +40,7 @@ public class AccountService
     }
     public Message postMessage(Message message) throws Exception
     {
-        if ((message.toString()).length() >= 255) //Checks not too long
+        if ((message.toString()).length() <= 255) //Checks not too long
         {
             throw new Exception();
         }
