@@ -54,7 +54,7 @@ public class SocialMediaController {
      * 
      *  If the registration is not successful, the response status should be 400. (Client error)
      */
-    private void registrationHandler(Context context)
+    private void registrationHandler(Context context) //Done
     {
         try
         {

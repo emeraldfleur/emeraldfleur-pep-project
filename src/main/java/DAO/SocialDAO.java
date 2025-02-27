@@ -4,15 +4,14 @@ import Util.ConnectionUtil;
 import java.sql.*; 
 
 public class SocialDAO {
-    public static boolean accountExists(Account account)
+    public static boolean accountExists(Account account) //ONLY checks if account that matches username exists
     {
         Connection connection = ConnectionUtil.getConnection();
         try 
         {
-            String sql = "SELECT * FROM Account WHERE username = ? AND password = ?;";
+            String sql = "SELECT * FROM Account WHERE username = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, account.username);
-            preparedStatement.setString(2, account.password);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
             {
@@ -59,9 +58,29 @@ public class SocialDAO {
     }
     public static boolean credentialsMatchExisting(Account account) 
     {
-        //Checks if provided account username and    
-        //password match an existing one
-        return true;
+        
+        Connection connection = ConnectionUtil.getConnection();
+        try 
+        {
+            String sql = "SELECT * FROM Account WHERE username = ? AND password = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, account.username);
+            preparedStatement.setString(2, account.password);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
 
     }
     public static Account retrieveAccountbyUserID(String username) throws Exception
