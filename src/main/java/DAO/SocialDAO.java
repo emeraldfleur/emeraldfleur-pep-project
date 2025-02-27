@@ -268,16 +268,20 @@ public class SocialDAO { //test
 
                 Message returnMessage = new Message();
 
-                while(rs.next())
+                if(rs.next())
                 {
                     int message_id = rs.getInt(1);
                     int posted_by = rs.getInt(2);
                     String message_text = rs.getString(3);
                     Long time_posted_epoch = rs.getLong(4);
                     returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
-                    
+                    return returnMessage;
+
                 }
-                return returnMessage;
+                else
+                {
+                    throw new Exception();
+                }
             }
              catch(SQLException e)
             {
@@ -305,17 +309,21 @@ public class SocialDAO { //test
                     String message_text = rs.getString(3);
                     Long time_posted_epoch = rs.getLong(4);
                     returnMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                    //Delete the message.
+
+                    sql2 = "DELETE FROM Message WHERE message_id = ?;";
+                    preparedStatement = connection.prepareStatement(sql2);
+                    preparedStatement.setInt(1, messageID);
+                    preparedStatement.executeUpdate();
+                    return returnMessage;
+                }
+                else
+                {
+                    throw new Exception();
                 }
                 
+         
                 
-                //Delete the message.
-
-                sql2 = "DELETE FROM Message WHERE message_id = ?;";
-                preparedStatement = connection.prepareStatement(sql2);
-                preparedStatement.setInt(1, messageID);
-                preparedStatement.executeUpdate();
-
-                return returnMessage;
              }
              catch(SQLException e)
             {
