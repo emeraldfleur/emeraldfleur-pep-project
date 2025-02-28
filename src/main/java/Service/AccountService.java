@@ -16,6 +16,10 @@ public class AccountService
         }
         else //if not, create account, return it.
         {
+            if(account.username.length() < 1 || account.password.length() < 4)
+            {
+                throw new Exception();
+            }
             return SocialDAO.createAccount(account);
         }
 
@@ -71,7 +75,7 @@ public class AccountService
     }
     public Message updateMessage(int messageID, Message newMessage) throws Exception
     {
-        if((newMessage.getMessage_text()).length() <= 255) //if not too long
+        if((newMessage.getMessage_text()).length() <= 255 && (newMessage.getMessage_text()).length() > 1) //if not too long
         {
             return SocialDAO.patchMessage(messageID, newMessage);
         }

@@ -93,11 +93,19 @@ public class SocialDAO { //test
             
             ResultSet rs2 = preparedStatement2.executeQuery();
             
-            int userID = rs2.getInt(1);
-            String newUsername = rs2.getString(2);
-            String password = rs2.getString(3);
-            Account returnAccount = new Account(userID, newUsername, password);
-            return returnAccount;
+            if(rs2.next())
+            {
+                int userID = rs2.getInt(1);
+                String newUsername = rs2.getString(2);
+                String password = rs2.getString(3);
+                Account returnAccount = new Account(userID, newUsername, password);
+                return returnAccount;
+            }
+            else
+            {
+                throw new Exception();
+            }
+            
         }
         catch(SQLException e)
         {
@@ -140,11 +148,19 @@ public class SocialDAO { //test
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
-            int userID = rs.getInt(1);
-            String newUsername = rs.getString(2);
-            String password = rs.getString(3);
-            Account returnAccount = new Account(userID, newUsername, password);
-            return returnAccount;
+            if(rs.next())
+            {
+                int userID = rs.getInt(1);
+                String newUsername = rs.getString(2);
+                String password = rs.getString(3);
+                Account returnAccount = new Account(userID, newUsername, password);
+                return returnAccount;
+            }
+            else
+            {
+                throw new Exception();
+            }
+            
         }
         catch(SQLException e)
         {
@@ -342,22 +358,30 @@ public class SocialDAO { //test
                 ResultSet rs = preparedStatement.executeQuery();
 
                 //Build message to give to message poster.
-                int message_id = rs.getInt(1);
-                int posted_by = rs.getInt(2);
-                String message_text = message.getMessage_text();
-                Long time_posted_epoch = rs.getLong(4);
-                Message postMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                if(rs.next())
+                {
+                    int message_id = rs.getInt(1);
+                    int posted_by = rs.getInt(2);
+                    String message_text = message.getMessage_text();
+                    Long time_posted_epoch = rs.getLong(4);
+                    Message postMessage = new Message(message_id, posted_by, message_text, time_posted_epoch);
+                    String sql = "UPDATE Message SET posted_by = ?, message_text = ?, time_posted_epoch = ?;";
+                    PreparedStatement preparedStatement2 = connection.prepareStatement(sql);
+                    preparedStatement2.setInt(1, posted_by);
+                    preparedStatement2.setString(2,message_text);
+                    preparedStatement2.setLong(3,time_posted_epoch);
+                    preparedStatement2.executeUpdate(); //Don't need to store results for first execution.
+                
+                    return postMessage;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                
 
                 
-                String sql = "UPDATE  Message (posted_by, message_text, time_posted_epoch, message_id) VALUES (?, ?, ?, ?);";
-                PreparedStatement preparedStatement2 = connection.prepareStatement(sql);
-                preparedStatement2.setInt(1, posted_by);
-                preparedStatement2.setString(2,message_text);
-                preparedStatement2.setLong(3,time_posted_epoch);
-                preparedStatement2.setInt(4, message_id);
-                preparedStatement2.executeUpdate(); //Don't need to store results for first execution.
                 
-                return postMessage;
              }
              catch(SQLException e)
             {
