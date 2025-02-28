@@ -248,8 +248,8 @@ public class SocialMediaController {
     The message existing on the database should have the updated message_text.
     
     If the update of the message is not successful for any reason, the response status should be 400. (Client error)
-     */
-    private void patchMessageIDHandler(Context context) //use Existing post method to check, then use patch methods here.
+    */
+    private void patchMessageIDHandler(Context context)
     {
         try
         {

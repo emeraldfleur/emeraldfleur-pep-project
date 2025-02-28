@@ -44,7 +44,7 @@ public class AccountService
     }
     public Message postMessage(Message message) throws Exception
     {
-        if ((message.message_text.length() > 255) || (message.message_text.length() < 1)) //Checks not too long
+        if ((message.message_text.length() > 255) || (message.message_text.length() < 1)) //Checks not too long or short
         {
             throw new Exception();
         }
@@ -75,7 +75,7 @@ public class AccountService
     }
     public Message updateMessage(int messageID, Message newMessage) throws Exception
     {
-        if((newMessage.getMessage_text()).length() <= 255 && (newMessage.getMessage_text()).length() > 1) //if not too long
+        if((newMessage.getMessage_text()).length() <= 255 && (newMessage.getMessage_text()).length() > 1) //if not too long or too short
         {
             return SocialDAO.patchMessage(messageID, newMessage);
         }
